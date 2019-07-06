@@ -3,15 +3,14 @@
 <configuration scan="true" scanPeriod="30 seconds">
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="ua.in.szolotukhin.flowable.common.TxFilter" />
         <encoder>
 <!--
 http://logback.qos.ch/manual/layouts.html
 The conversion pattern of PatternLayout is closely related to the conversion pattern of the printf() function in the C programming language.
 A conversion pattern is composed of literal text and format control expressions called conversion specifiers.
-
--Dlogback.configurationFile=logback-tx.xml
 -->
-            <pattern>%d{HH:mm:ss.SSS} %-5.5X{pid} [%-30.30thread] %-5level %logger{36} - %msg%n</pattern>
+            <pattern>%d{HH:mm:ss.SSS} [%-30.30thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
 
@@ -35,6 +34,9 @@ A conversion pattern is composed of literal text and format control expressions 
     <logger name="org.flowable" level="warn"/>
     <logger name="org.apache.ibatis" level="info"/>
 
+    <logger name="org.apache.ibatis.transaction.jdbc.JdbcTransaction" level="debug">
+        <appender-ref ref="STDOUT" />
+    </logger>
 <!--    <logger name="org.flowable.engine.impl.interceptor.LoggingExecutionTreeCommandInvoker" level="info"/>-->
 <!--    <logger name="org.flowable.job.service.impl.asyncexecutor.AcquireAsyncJobsDueRunnable" level="warn"/>-->
 <!--    <logger name="org.flowable.engine.impl.cfg.StandaloneProcessEngineConfiguration" level="warn"/>-->
@@ -50,6 +52,5 @@ A conversion pattern is composed of literal text and format control expressions 
     <!-- Configure so that it outputs to both console and log file -->
     <root level="DEBUG">
         <appender-ref ref="FILE" />
-        <appender-ref ref="STDOUT" />
     </root>
 </configuration>
