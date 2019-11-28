@@ -7,7 +7,7 @@ import org.flowable.engine.impl.cfg.StandaloneProcessEngineConfiguration;
 
 @Slf4j
 public class ProcessEngineFactory {
-	private static final boolean HOME = false;
+	private static final boolean HOME = true;
 
 	public static ProcessEngine createEngine(boolean recreateSchema) {
 
